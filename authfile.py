@@ -79,17 +79,33 @@ def index():
 
     return f"Welcome <br> <a href='/login'><button>Login</button></a>"
 
-def get_user_photo_url(google_id):
-    # Implement this function to get the user's photo URL using the Google People API
-    # For simplicity, return a placeholder URL for testing
-    return "https://example.com/placeholder_image.jpg"
+def design_game():
+    def print_diamond_pyramid(word, a):
+        for i in range(1, a + 1, 2):
+            spaces = " " * ((a - i) // 2)
+            row = spaces + ''.join(word[:i]) + spaces
+          print(row)
+        for i in range(a - 2, 0, -2):
+            spaces = " " * ((a - i) // 2)
+            row = spaces + ''.join(word[:i]) + spaces
+            print(row)
+    word = "FormulaQSolutions"
+    a = int(input("Enter the number of lines for the pyramid: "))
+
+    print_diamond_pyramid(word, a)
+
+@app.route("/play_game")
+@login_is_required
+def play_game():
+    design_game()
+    return "<br/><a href='/protected_area'><button>Back to Protected Area</button></a>"
 
 @app.route("/protected_area")
 @login_is_required
 def protected_area():
     name = session.get('name')
     email = session.get('email')    
-    return f"<br/> Hello {name}! <br/>You are signed in with the E-mail: {email} <br> <a href='/Signout'><button>Signout</button></a>"
+    return f"<br/> Hello {name}! <br/>You are signed in with the E-mail: {email} <br> <a href='/play_game'><button>Let's play game</button> </a> <br><a href='/Signout'><button>Signout</button></a></br>"
 
 if __name__=="__main__":
     app.run(debug=True)
