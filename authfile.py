@@ -88,9 +88,8 @@ def get_user_photo_url(google_id):
 @login_is_required
 def protected_area():
     name = session.get('name')
-    email = session.get('email')
-    photo_url = get_user_photo_url(session.get('google_id'))
-    return f"<img src='{photo_url} <br/> 'alt='User Photo'><br/> Hello {name}! <br/>You are signed in with the E-mail: {email} <br> <a href='/Signout'><button>Signout</button></a>"
+    email = session.get('email')    
+    return f"<br/> Hello {name}! <br/>You are signed in with the E-mail: {email} <br> <a href='/Signout'><button>Signout</button></a>"
 
 if __name__=="__main__":
     app.run(debug=True)
